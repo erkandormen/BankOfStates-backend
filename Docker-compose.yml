@@ -1,0 +1,21 @@
+version: 3
+services:
+    web: 
+        image: bankof:1
+        ports: 
+            - 8080:8080
+            - 9990:9990
+        volumes:
+            - ./deployments:/opt/jboss/wildfly/standalone/deployments/
+        links:
+            - mysql
+        depends_on:
+            - mysql
+
+    mysql:
+        image: mysql
+        environment: 
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_USER=admin
+            - MYSQL_PASSWORD=root
+            - MYSQL_DATABASE=bankofstates
